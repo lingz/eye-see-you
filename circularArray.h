@@ -1,15 +1,14 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "circularArray.h"
 
 void CircularArray::initializeArray (int l) {
 	currentPosition = -1;
 	effectiveSize = 0;
-	x1 = (double*) malloc(l*sizeof(double));
-	x2 = (double*) malloc(l*sizeof(double));
-	y1 = (double*) malloc(l*sizeof(double));
-	y2 = (double*) malloc(l*sizeof(double));
+	x1 = (double*) malloc(l*sizeof(double);
+	x2 = (double*) malloc(l*sizeof(double);
+	y1 = (double*) malloc(l*sizeof(double);
+	y2 = (double*) malloc(l*sizeof(double);
 }
 
 void CircularArray::destroyArray () {
