@@ -28,4 +28,8 @@ const float kPostProcessThreshold = 0.97;
 // Eye Corner
 const bool kEnableEyeCorner = false;
 
+// Classifiers
+const cv::String FACE_CASCADE_FILE = "res/haarcascade_frontalface_alt.xml";
+const cv::String EYE_CASCADE_FILE = "res/haarcascade_eye_tree_eyeglasses.xml";
+
 #endif
