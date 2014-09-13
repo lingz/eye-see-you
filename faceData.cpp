@@ -1,16 +1,4 @@
 #include "faceData.h"
-#include <stdio.h>
-
-FaceData::FaceData(){
-
-}
-
-FaceData::FaceData(double lX, double lY, double rX, double rY){
-    this->lX = lX;
-    this->lY = lY;
-    this->rX = rX;
-    this->rY = rY;
-}
 
 double FaceData::getlX() {
     return lX;

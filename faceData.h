@@ -3,8 +3,13 @@
 class FaceData {
     double lX, lY, rX, rY;
     public:
-        FaceData();
-        FaceData(double, double, double, double);
+        FaceData() {};
+        FaceData(double lX, double lY, double rX, double rY){
+            this->lX = lX;
+            this->lY = lY;
+            this->rX = rX;
+            this->rY = rY;
+        };
         double getlX();
         void setlX(double);
         double getlY();
@@ -13,5 +18,5 @@ class FaceData {
         void setrX(double);
         double getrY();
         void setrY(double);
-} data;
+};
 #endif

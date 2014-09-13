@@ -5,11 +5,6 @@
 #include "faceData.h"
 #include "circularArray.h"
 
-
-CircularArray::CircularArray(){
-    oldestData = 0;
-}
-
 void CircularArray::addData(FaceData fd){
     faces[oldestData] = fd;
     oldestData++;
@@ -17,7 +12,7 @@ void CircularArray::addData(FaceData fd){
 }
 
 FaceData CircularArray::getValueAt(int offset){
-    offset = std::abs(offset) % TOTAL_FACES;
+    offset = abs(offset) % TOTAL_FACES;
     int index = oldestData - offset;
     if(index < 0){
         return faces[index + TOTAL_FACES];
@@ -28,7 +23,7 @@ FaceData CircularArray::getValueAt(int offset){
 }
 
 int main () {
-	CircularArray * circ = new CircularArray();
+	CircularArray circ();
     /*
 	circ.addData(FaceData(10, 10, 10, 10));
 	circ.addData(FaceData(1, 10, 10, 10));
@@ -49,6 +44,5 @@ int main () {
 	circ.addData(FaceData(10, 10, 10, 10));
 	circ.addData(FaceData(9, 9, 9, 9));
     */
-    delete circ;
 	return 0;
 }

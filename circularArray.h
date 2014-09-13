@@ -7,7 +7,7 @@ class CircularArray {
         FaceData faces[TOTAL_FACES];
     
     public:
-        CircularArray();
+        CircularArray() {oldestData=0;};
         void addData(FaceData);
         FaceData getValueAt(int);
 };
