@@ -1,4 +1,4 @@
-PROJECT( eyelike_project )
+PROJECT( eye_see_you_project )
 FIND_PACKAGE( OpenCV REQUIRED )
 cmake_minimum_required(VERSION 2.8)
 
