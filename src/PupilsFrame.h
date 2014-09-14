@@ -4,7 +4,7 @@
 #include "EyesFrame.h"
 #include "EventState.h"
 
-class PupilFrame {
+class PupilsFrame {
   public:
     int numPupils;
     bool hasLeftPupil;
@@ -18,7 +18,7 @@ class PupilFrame {
     int rightPupilY;
     int rightPupilAbsY;
     EventState state;
-    PupilFrame();
-    PupilFrame(const EyesFrame &eyes, const cv::Rect &face, cv::Mat &faceROI);
+    PupilsFrame();
+    PupilsFrame(const EyesFrame &eyes, const cv::Rect &face, cv::Mat &faceROI);
 };
 #endif
