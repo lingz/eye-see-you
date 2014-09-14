@@ -21,9 +21,11 @@ PupilFrame CircularArray::getValueAt(int offset){
         return frames[index];
     }
 }
-/*
+
 int main () {
 	CircularArray * circ = new CircularArray();
+    circ.addData(PupilFrame());
+    /*
     circ->addData(FaceData(10, 10, 10, 10));
 	circ->addData(FaceData(10, 10, 10, 10));
 	circ->addData(FaceData(1, 10, 10, 10));
@@ -45,6 +47,6 @@ int main () {
 	circ->addData(FaceData(9, 9, 9, 9));
     FaceData fd = circ->getValueAt(0);
     printf("lx is %f", fd.getlX());
+    */
 	return 0;
 }
-*/

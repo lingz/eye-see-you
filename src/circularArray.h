@@ -1,3 +1,5 @@
+#ifndef CIRC_ARRAY
+#define CIRC_ARRAY
 #include "PupilFrame.h"
 
 class CircularArray {
@@ -11,3 +13,4 @@ class CircularArray {
         void addData(PupilFrame);
         PupilFrame getFrameAt(int);
 };
+#endif
