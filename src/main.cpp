@@ -56,7 +56,7 @@ int main( int argc, const char** argv ) {
     eventHandler = EventHandler();
   }
 
-  if (mode == DEBUG) {
+  if (mode == DEBUG || mode == NORMAL) {
     printf("Input Mode: %s\n", mode == NORMAL ? "normal" :
         mode == DEBUG ? "debug" :
         mode == PLOT ? "plot" : "none");
@@ -69,7 +69,7 @@ int main( int argc, const char** argv ) {
     cv::moveWindow("Right Eye", 10, 600);
     cv::namedWindow("Left Eye",CV_WINDOW_NORMAL);
     cv::moveWindow("Left Eye", 10, 800);
-  } else if (mode == PLOT || mode == NORMAL) {
+  } else if (mode == PLOT) {
     cv::namedWindow(face_window_name,CV_WINDOW_NORMAL);
     cv::moveWindow(face_window_name, 400, 100);
   }
@@ -102,7 +102,7 @@ int main( int argc, const char** argv ) {
         printf(" --(!) No captured frame -- Break!");
         break;
       }
-      if (mode == DEBUG) {
+      if (mode == DEBUG || mode == NORMAL) {
         imshow(main_window_name, debugImage);
       }
 
