@@ -3,6 +3,7 @@
 #include "stdio.h"
 
 #include "findEyes.h"
+#include "Eyes.h"
 
 cv::CascadeClassifier eye_cascade;
 bool hasInitialized = false;
@@ -35,6 +36,7 @@ void findEyes(cv::Mat face, Eyes &eyes) {
   cv::Rect eye0;
   cv::Rect eye1;
 
+  printf("%d\n", numEyes);
   switch (numEyes) {
     case 0:
       eyes = (Eyes) {cv::Rect(), cv::Rect(), 0, false, false};
@@ -43,7 +45,7 @@ void findEyes(cv::Mat face, Eyes &eyes) {
       // whether the eye is left or right is not trustworthy
       // just using a simple heuristic here
       eye0 = eyesVector[0];
-      if (eye0.x < face.cols / 2) {
+      if (eye0.x + (eye0.width / 2) < face.cols / 2) {
         eyes = (Eyes) {eye0, cv::Rect(), 1, true, false};
       } else {
         eyes = (Eyes) {cv::Rect(), eye0, 1, false, true};

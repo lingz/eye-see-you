@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./build/bin/eye-see-you
+./build/bin/eye-see-you $@

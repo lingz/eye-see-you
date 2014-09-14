@@ -26,10 +26,38 @@ cv::RNG rng(12345);
 cv::Mat debugImage;
 cv::Mat skinCrCbHist = cv::Mat::zeros(cv::Size(256, 256), CV_8UC1);
 
-/**
+enum Mode {NORMAL, DEBUG, PLOT};
+Mode mode;
+
+/*
  * @function main
  */
 int main( int argc, const char** argv ) {
+
+  // Get the mode
+  if (argc > 1)
+  {
+    const char *inputMode = argv[1];
+    printf("%s", inputMode);
+    if (strcmp(inputMode, "normal") == 0) {
+      mode = NORMAL;
+    } else if (strcmp(inputMode, "debug") == 0) {
+      mode = DEBUG;
+    } else if (strcmp(inputMode, "plot") == 0) {
+      mode = PLOT;
+    } else {
+      mode = NORMAL;
+    }
+  }
+  else
+  {
+    mode = NORMAL;
+  }
+
+  printf("Input Mode: %s\n", mode == NORMAL ? "normal" :
+      mode == DEBUG ? "debug" :
+      mode == PLOT ? "plot" : "none");
+
   cv::Mat frame;
 
   // Load the cascades
@@ -96,33 +124,13 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
     GaussianBlur( faceROI, faceROI, cv::Size( 0, 0 ), sigma);
   }
 
-  // TODO: Change this later to use actual eye deteciton algorithm?
-
-  //-- Find eye regions and draw them
-  
-  // percentage of the face that eyes cover
-  //int eye_region_width = face.width * (kEyePercentWidth/100.0);
-  //int eye_region_height = face.width * (kEyePercentHeight/100.0);
-
-  // distance from top of face to the start of the eye
-  //int eye_region_top = face.height * (kEyePercentTop/100.0);
-  // distance from left of face to the start of the eye
-  //int eye_region_side = face.width * (kEyePercentSide / 100.0);
-  
-  // create the rectangles around the eyes in the face
-  //cv::Rect leftEyeRegion(eye_region_side,
-                         //eye_region_top,eye_region_width,eye_region_height);
-  //cv::Rect rightEyeRegion(face.width - eye_region_width - eye_region_side,
-                          //eye_region_top,eye_region_width,eye_region_height);
-                      
-
   Eyes eyes;
   findEyes(faceROI, eyes);
 
   cv::Point leftPupil;
   cv::Point rightPupil;
   if (eyes.hasLeftEye) {
-    leftPupil = findEyeCenter(faceROI, eyes.leftEye, "Left Eye");
+    leftPupil = findEyeCenter(faceROI, eyes.leftEye, "Left Eye", eyes);
     int leftX = leftPupil.x;
     int leftY = leftPupil.y;
     leftPupil.x += eyes.leftEye.x;
@@ -130,78 +138,52 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
     circle(debugFace, leftPupil, 3, 1234);
   }
   if (eyes.hasRightEye) {
-    rightPupil = findEyeCenter(faceROI, eyes.rightEye, "Right Eye");
+    rightPupil = findEyeCenter(faceROI, eyes.rightEye, "Right Eye", eyes);
     int rightX = rightPupil.x;
     int rightY = rightPupil.y;
     rightPupil.x += eyes.rightEye.x;
     rightPupil.y += eyes.rightEye.y;
     circle(debugFace, rightPupil, 3, 1234);
   }
-  switch (eyes.numEyes) {
-    case 0:
-      printf("No eyes");
-      break;
-    case 1:
-      printf("L: %s, R: %s: <X: %d, Y: %d>",
-        eyes.hasLeftEye ? "T" : "F",
-        eyes.hasRightEye ? "T" : "F", 
-        eyes.hasLeftEye ? eyes.leftEye.x : eyes.rightEye.x,
-        eyes.hasLeftEye ? eyes.leftEye.y : eyes.rightEye.y);
-    default:
-      printf("L: <X: %d, Y: %d>; R: <X: %d, Y: %d>;",
-        eyes.leftEye.x,
-        eyes.leftEye.y,
-        eyes.rightEye.x,
-        eyes.rightEye.y);
+
+  if (mode == DEBUG) {
+    switch (eyes.numEyes) {
+      case 0:
+        printf("-,-;\n");
+        break;
+      case 1:
+        printf("%s,%s; <X: %d, Y: %d>\n",
+          eyes.hasLeftEye ? "1" : "-",
+          eyes.hasRightEye ? "1" : "-", 
+          eyes.hasLeftEye ? eyes.leftEye.x : eyes.rightEye.x,
+          eyes.hasLeftEye ? eyes.leftEye.y : eyes.rightEye.y);
+      default:
+        printf("1,1; <X: %d, Y: %d>; R: <X: %d, Y: %d>;\n",
+          eyes.leftEye.x,
+          eyes.leftEye.y,
+          eyes.rightEye.x,
+          eyes.rightEye.y);
+    }
+  } else if (mode == PLOT) {
+    switch (eyes.numEyes) {
+      case 0:
+        printf("0,0,0,0\n");
+        break;
+      case 1:
+        printf("%s,%s; <X: %d, Y: %d>\n",
+          eyes.hasLeftEye ? "1" : "-",
+          eyes.hasRightEye ? "1" : "-", 
+          eyes.hasLeftEye ? eyes.leftEye.x : eyes.rightEye.x,
+          eyes.hasLeftEye ? eyes.leftEye.y : eyes.rightEye.y);
+      default:
+        printf("1,1; <X: %d, Y: %d>; R: <X: %d, Y: %d>;\n",
+          eyes.leftEye.x,
+          eyes.leftEye.y,
+          eyes.rightEye.x,
+          eyes.rightEye.y);
+    }
   }
-
-  //-- Find Eye Centers
-  //cv::Point leftPupil = findEyeCenter(faceROI,leftEyeRegion,"Left Eye");
-  //cv::Point rightPupil = findEyeCenter(faceROI,rightEyeRegion,"Right Eye");
-
-  // get corner regions
-  //cv::Rect leftRightCornerRegion(leftEyeRegion);
-  //leftRightCornerRegion.width -= leftPupil.x;
-  //leftRightCornerRegion.x += leftPupil.x;
-  //leftRightCornerRegion.height /= 2;
-  //leftRightCornerRegion.y += leftRightCornerRegion.height / 2;
-  //cv::Rect leftLeftCornerRegion(leftEyeRegion);
-  //leftLeftCornerRegion.width = leftPupil.x;
-  //leftLeftCornerRegion.height /= 2;
-  //leftLeftCornerRegion.y += leftLeftCornerRegion.height / 2;
-  //cv::Rect rightLeftCornerRegion(rightEyeRegion);
-  //rightLeftCornerRegion.width = rightPupil.x;
-  //rightLeftCornerRegion.height /= 2;
-  //rightLeftCornerRegion.y += rightLeftCornerRegion.height / 2;
-  //cv::Rect rightRightCornerRegion(rightEyeRegion);
-  //rightRightCornerRegion.width -= rightPupil.x;
-  //rightRightCornerRegion.x += rightPupil.x;
-  //rightRightCornerRegion.height /= 2;
-  //rightRightCornerRegion.y += rightRightCornerRegion.height / 2;
-
-  //rectangle(debugFace,leftRightCornerRegion,200);
-  //rectangle(debugFace,leftLeftCornerRegion,200);
-  //rectangle(debugFace,rightLeftCornerRegion,200);
-  //rectangle(debugFace,rightRightCornerRegion,200);
-
-  // report the eye coordinates relative to eye centers
-  //int leftX = leftPupil.x;
-  //int leftY = leftPupil.y;
-  //int rightX = rightPupil.x;
-  //int rightY = rightPupil.y;
-
-  //printf("L: (%d, %d); R: (%d, %d);\n", leftX, leftY, rightX, rightY);
-
-  // change eye centers to face coordinates
-  //rightPupil.x += rightEyeRegion.x;
-  //rightPupil.y += rightEyeRegion.y;
-  //leftPupil.x += leftEyeRegion.x;
-  //leftPupil.y += leftEyeRegion.y;
-
-  // draw eye centers
-  //circle(debugFace, rightPupil, 3, 1234);
-  //circle(debugFace, leftPupil, 3, 1234);
-
+  
 
   imshow(face_window_name, faceROI);
 }
@@ -218,12 +200,8 @@ void detectAndDisplay( cv::Mat frame ) {
   cv::split(frame, rgbChannels);
   cv::Mat frame_gray = rgbChannels[2];
 
-  //cvtColor( frame, frame_gray, CV_BGR2GRAY );
-  //equalizeHist( frame_gray, frame_gray );
-  //cv::pow(frame_gray, CV_64F, frame_gray);
   //-- Detect faces
   face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE|CV_HAAR_FIND_BIGGEST_OBJECT, cv::Size(150, 150) );
-  //  findSkin(debugImage);
 
   for( int i = 0; i < faces.size(); i++ )
   {
