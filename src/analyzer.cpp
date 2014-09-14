@@ -10,7 +10,8 @@ class EventHandler{
         CircularArray frames;
 
     public:
-        void analyze();
+        EventHandler();
+        void analyze(PupilsFrame&);
 
     private:
         void handleActive();
@@ -23,7 +24,12 @@ class EventHandler{
         bool eyeCheck(int, bool, bool);
 };
 
-void EventHandler::analyze(){
+EventHandler::EventHandler(){
+    frames = CircularArray();
+}
+
+void EventHandler::analyze(PupilsFrame& frame){
+    frames.addData(frame);
     switch(state){
         case RED_ALERT:
             handleRedAlert();
