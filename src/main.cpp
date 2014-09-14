@@ -138,21 +138,21 @@ void processFrame(cv::Mat frame_gray, cv::Rect face) {
         printf("%s,%s; <X: %d, Y: %d>\n",
           eyes.hasLeftEye ? "1" : "-",
           eyes.hasRightEye ? "1" : "-", 
-          eyes.hasLeftEye ? eyes.leftEye.x : eyes.rightEye.x,
-          eyes.hasLeftEye ? eyes.leftEye.y : eyes.rightEye.y);
+          eyes.hasLeftEye ? pupils.leftPupilX : pupils.rightPupilX,
+          eyes.hasLeftEye ? pupils.leftPupilY : pupils.rightPupilY);
       default:
         printf("1,1; <X: %d, Y: %d>; R: <X: %d, Y: %d>;\n",
-          eyes.leftEye.x,
-          eyes.leftEye.y,
-          eyes.rightEye.x,
-          eyes.rightEye.y);
+          pupils.leftPupilX,
+          pupils.leftPupilY,
+          pupils.rightPupilX,
+          pupils.rightPupilY);
     }
     if (pupils.hasLeftPupil) {
-      cv::Point leftPupil(pupils.leftPupilAbsX - face.x);
+      cv::Point leftPupil(pupils.leftPupilAbsX - face.x, pupils.leftPupilAbsY - face.y);
       circle(debugFace, leftPupil, 3, 1234);
     }
     if (pupils.hasRightPupil) {
-      cv::Point rightPupil(pupils.rightPupilAbsX - face.x);
+      cv::Point rightPupil(pupils.rightPupilAbsX - face.x, pupils.rightPupilAbsY - face.y);
       circle(debugFace, rightPupil, 3, 1234);
     }
   } else if (mode == PLOT) {

@@ -7,7 +7,7 @@
 cv::CascadeClassifier eye_cascade;
 bool hasInitialized = false;
 
-void Eyes::initialize() {
+void EyesFrame::initialize() {
   if (!hasInitialized) {
     eye_cascade.load(EYE_CASCADE_FILE);
     if( !eye_cascade.load( EYE_CASCADE_FILE ) ){
