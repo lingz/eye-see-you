@@ -8,9 +8,8 @@
 #include <math.h>
 
 #include "constants.h"
-#include "findEyeCenter.h"
-#include "findEyes.h"
-
+#include "EyesFrame.h"
+#include "PupilsFrame.h"
 
 /** Constants **/
 
@@ -114,33 +113,21 @@ int main( int argc, const char** argv ) {
   return 0;
 }
 
-void findEyes(cv::Mat frame_gray, cv::Rect face) {
+void processFrame(cv::Mat frame_gray, cv::Rect face) {
   // functor that selects the face region inside the frame
   cv::Mat faceROI = frame_gray(face);
   cv::Mat debugFace = faceROI;
 
+  // smoothing
   if (kSmoothFaceImage) {
     double sigma = kSmoothFaceFactor * face.width;
     GaussianBlur( faceROI, faceROI, cv::Size( 0, 0 ), sigma);
   }
 
-  Eyes eyes;
-  findEyes(faceROI, eyes);
-
-  if (eyes.hasLeftEye) {
-    int leftX = leftPupil.x;
-    int leftY = leftPupil.y;
-    leftPupil.x += eyes.leftEye.x;
-    leftPupil.y += eyes.leftEye.y;
-    circle(debugFace, leftPupil, 3, 1234);
-  }
-  if (eyes.hasRightEye) {
-    int rightX = rightPupil.x;
-    int rightY = rightPupil.y;
-    rightPupil.x += eyes.rightEye.x;
-    rightPupil.y += eyes.rightEye.y;
-    circle(debugFace, rightPupil, 3, 1234);
-  }
+  // haart detection on faces to find eyes
+  EyesFrame eyes(faceROI);
+  // haart detection on eyes to find pupils
+  PupilFrame pupils(eyes, face, faceROI);
 
   if (mode == DEBUG) {
     switch (eyes.numEyes) {
@@ -159,6 +146,14 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
           eyes.leftEye.y,
           eyes.rightEye.x,
           eyes.rightEye.y);
+    }
+    if (pupils.hasLeftPupil) {
+      cv::Point leftPupil(pupils.leftPupilAbsX - face.x);
+      circle(debugFace, leftPupil, 3, 1234);
+    }
+    if (pupils.hasRightPupil) {
+      cv::Point rightPupil(pupils.rightPupilAbsX - face.x);
+      circle(debugFace, rightPupil, 3, 1234);
     }
   } else if (mode == PLOT) {
     switch (eyes.numEyes) {
@@ -179,7 +174,6 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
           eyes.rightEye.y);
     }
   }
-  
 
   imshow(face_window_name, faceROI);
 }
@@ -205,6 +199,6 @@ void detectAndDisplay( cv::Mat frame ) {
   }
   //-- Show what you got
   if (faces.size() > 0) {
-    findEyes(frame_gray, faces[0]);
+    processFrame(frame_gray, faces[0]);
   }
 }
