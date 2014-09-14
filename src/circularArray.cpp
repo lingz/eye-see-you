@@ -5,13 +5,13 @@
 #include "PupilsFrame.h"
 #include "circularArray.h"
 
-void CircularArray::addData(PupilFrame frame){
+void CircularArray::addData(PupilsFrame frame){
     frames[oldestData] = frame;
     oldestData++;
     if(oldestData >= TOTAL_FACES) oldestData = 0;
 }
 
-PupilFrame & CircularArray::getFrameAt(int offset){
+PupilsFrame & CircularArray::getFrameAt(int offset){
     offset = abs(offset - 1) % TOTAL_FACES;
     int index = oldestData - offset;
     if(index < 0){

@@ -6,11 +6,11 @@ class CircularArray {
     private:
         const static int TOTAL_FACES = 60;
         int oldestData;
-        PupilFrame frames[TOTAL_FACES];
+        PupilsFrame frames[TOTAL_FACES];
     
     public:
         CircularArray() {oldestData=0;} 
-        void addData(PupilFrame);
-        PupilFrame& getFrameAt(int);
+        void addData(PupilsFrame);
+        PupilsFrame& getFrameAt(int);
 };
 #endif
