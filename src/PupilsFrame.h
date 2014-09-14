@@ -2,6 +2,7 @@
 #define PUPIL_FRAME_H
 
 #include "EyesFrame.h"
+#include "EventState.h"
 
 class PupilFrame {
   public:
@@ -16,6 +17,7 @@ class PupilFrame {
     int rightPupilAbsX;
     int rightPupilY;
     int rightPupilAbsY;
+    EventState state;
     PupilFrame();
     PupilFrame(const EyesFrame &eyes, const cv::Rect &face, cv::Mat &faceROI);
 };

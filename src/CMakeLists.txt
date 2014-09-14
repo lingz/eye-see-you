@@ -12,6 +12,10 @@ ADD_EXECUTABLE(
   EyesFrame.h
   PupilsFrame.cpp
   PupilsFrame.h
+  circularArray.cpp
+  circularArray.h
+  EventState.h
+  analyzer.cpp
   )
 TARGET_LINK_LIBRARIES( eye-see-you ${OpenCV_LIBS} )
 #target_link_libraries( eye-see-you ${MGL})
