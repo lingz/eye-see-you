@@ -1,28 +1,8 @@
 #include "opencv2/imgproc/imgproc.hpp"
+#include "EventHandler.h"
 #include "EventState.h"
 #include "circularArray.h"
 #include <iostream>
-
-class EventHandler{
-    private:
-        EventState pastSecondState;
-        EventState state;
-        CircularArray frames;
-
-    public:
-        EventHandler();
-        void analyze(PupilsFrame&);
-
-    private:
-        void handleActive();
-        void handleRedAlert();
-        void handleTurnedLeft();
-        void handleTurnedRight();
-        void handleWaitingForLeftTurn();
-        void handleWaitingForRightTurn();
-        bool stateCheck(int, EventState);
-        bool eyeCheck(int, bool, bool);
-};
 
 EventHandler::EventHandler(){
     frames = CircularArray();
