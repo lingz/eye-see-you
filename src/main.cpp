@@ -140,12 +140,14 @@ void processFrame(cv::Mat frame_gray, cv::Rect face) {
           eyes.hasRightEye ? "1" : "-", 
           eyes.hasLeftEye ? pupils.leftPupilX : pupils.rightPupilX,
           eyes.hasLeftEye ? pupils.leftPupilY : pupils.rightPupilY);
+        break;
       default:
         printf("1,1; <X: %d, Y: %d>; R: <X: %d, Y: %d>;\n",
           pupils.leftPupilX,
           pupils.leftPupilY,
           pupils.rightPupilX,
           pupils.rightPupilY);
+        break;
     }
     if (pupils.hasLeftPupil) {
       cv::Point leftPupil(pupils.leftPupilAbsX - face.x, pupils.leftPupilAbsY - face.y);

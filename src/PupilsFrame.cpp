@@ -2,6 +2,8 @@
 #include "EyesFrame.h"
 #include "findEyeCenter.h"
 
+#include <iostream>
+
 PupilFrame::PupilFrame(const EyesFrame &eyes, const cv::Rect &face, cv::Mat &faceROI) {
   cv::Point leftPupil;
   cv::Point rightPupil;
