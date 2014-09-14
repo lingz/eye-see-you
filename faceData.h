@@ -12,12 +12,12 @@ class FaceData {
             this->rY = rY;
         };
         double getlX();
-        void setlX(double);
+        void setlX(double lX);
         double getlY();
-        void setlY(double);
+        void setlY(double lY);
         double getrX();
-        void setrX(double);
+        void setrX(double rX);
         double getrY();
-        void setrY(double);
+        void setrY(double rY);
 };
 #endif
