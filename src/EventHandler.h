@@ -19,6 +19,8 @@ class EventHandler{
         void handleRedAlert();
         void handleTurnedLeft();
         void handleTurnedRight();
+        void handleWinkLeft();
+        void handleWinkRight();
         void handleWaitingForLeftTurn();
         void handleWaitingForRightTurn();
         void handleDeactivate();
