@@ -9,7 +9,10 @@ dataframe <- data.frame()
 
 count <- 1
 
+print(1)
 while(length(line <- readLines(f,n=1)) > 0) {
+  print(count)
+
   lineSplit <- strsplit(line, " ")[[1]]
 
   dataframe <- rbind(dataframe, as.numeric(lineSplit))
@@ -34,6 +37,7 @@ while(length(line <- readLines(f,n=1)) > 0) {
   }
 
   count <- count+1
+  print(count)
 
 }
 

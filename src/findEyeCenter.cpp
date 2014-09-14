@@ -10,6 +10,7 @@
 
 #include "constants.h"
 #include "helpers.h"
+#include "flags.h"
 
 // Pre-declarations
 cv::Mat floodKillEdges(cv::Mat &mat);
@@ -133,7 +134,9 @@ cv::Point findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow) {
       }
     }
   }
-  imshow(debugWindow,gradientX);
+  if (mode == DEBUG) {
+    imshow(debugWindow, gradientX);
+  }
   //-- Create a blurred and inverted image for weighting
   cv::Mat weight;
   GaussianBlur( eyeROI, weight, cv::Size( kWeightBlurSize, kWeightBlurSize ), 0, 0 );
