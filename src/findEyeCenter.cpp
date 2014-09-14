@@ -134,7 +134,7 @@ cv::Point findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow) {
       }
     }
   }
-  if (mode == DEBUG) {
+  if (mode == DEBUG || mode == NORMAL) {
     imshow(debugWindow, gradientX);
   }
   //-- Create a blurred and inverted image for weighting
