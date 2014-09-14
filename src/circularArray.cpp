@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "PupilFrame.h"
+#include "PupilsFrame.h"
 #include "circularArray.h"
 
 void CircularArray::addData(PupilFrame frame){

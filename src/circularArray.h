@@ -1,6 +1,6 @@
 #ifndef CIRC_ARRAY
 #define CIRC_ARRAY
-#include "PupilFrame.h"
+#include "PupilsFrame.h"
 
 class CircularArray {
     private:

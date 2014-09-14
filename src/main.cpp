@@ -127,7 +127,7 @@ void processFrame(cv::Mat frame_gray, cv::Rect face) {
   // haart detection on faces to find eyes
   EyesFrame eyes(faceROI);
   // haart detection on eyes to find pupils
-  PupilFrame pupils(eyes, face, faceROI);
+  PupilsFrame pupils(eyes, face, faceROI);
 
   if (mode == DEBUG || mode == PLOT) {
     if (pupils.hasLeftPupil) {
@@ -209,5 +209,7 @@ void detectAndDisplay( cv::Mat frame ) {
   //-- Show what you got
   if (faces.size() > 0) {
     processFrame(frame_gray, faces[0]);
+  } else {
+    PupilsFrame nullFrame();
   }
 }
