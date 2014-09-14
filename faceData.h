@@ -1,5 +1,6 @@
 #ifndef FACEDATA_H
 #define FACEDATA_H
+
 class FaceData {
     double lX, lY, rX, rY;
     public:

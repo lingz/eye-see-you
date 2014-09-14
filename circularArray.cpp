@@ -5,6 +5,8 @@
 #include "faceData.h"
 #include "circularArray.h"
 
+class FaceData;
+
 void CircularArray::addData(FaceData fd){
     faces[oldestData] = fd;
     oldestData++;
@@ -23,26 +25,8 @@ FaceData CircularArray::getValueAt(int offset){
 }
 
 int main () {
-	CircularArray circ();
-    /*
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(1, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 1, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(10, 10, 10, 10));
-	circ.addData(FaceData(9, 9, 9, 9));
-    */
+	CircularArray * circ = new CircularArray();
+	circ->addData(FaceData(10, 10, 10, 10));
+	printf("%f", circ->getValueAt(0).getlX());
 	return 0;
 }
