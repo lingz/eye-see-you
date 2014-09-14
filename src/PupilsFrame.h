@@ -1,7 +1,7 @@
 #ifndef PUPIL_FRAME_H
 #define PUPIL_FRAME_H
 
-#include "Eyes.h"
+#include "EyesFrame.h"
 
 class PupilFrame {
   public:
@@ -16,6 +16,6 @@ class PupilFrame {
     int rightPupilAbsX;
     int rightPupilY;
     int rightPupilAbsY;
-    PupilFrame(const Eyes &eyes, const cv::Rect &face, cv::Mat &faceROI);
+    PupilFrame(const EyesFrame &eyes, const cv::Rect &face, cv::Mat &faceROI);
 };
 #endif

@@ -8,8 +8,10 @@ ADD_EXECUTABLE(
   constants.h
   helpers.cpp
   helpers.h
-  findEyes.cpp
-  findEyes.h
+  EyesFrame.cpp
+  EyesFrame.h
+  PupilsFrame.cpp
+  PupilsFrame.h
   )
 TARGET_LINK_LIBRARIES( eye-see-you ${OpenCV_LIBS} )
 #target_link_libraries( eye-see-you ${MGL})
