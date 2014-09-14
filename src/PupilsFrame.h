@@ -16,6 +16,7 @@ class PupilFrame {
     int rightPupilAbsX;
     int rightPupilY;
     int rightPupilAbsY;
+    PupilFrame();
     PupilFrame(const EyesFrame &eyes, const cv::Rect &face, cv::Mat &faceROI);
 };
 #endif
