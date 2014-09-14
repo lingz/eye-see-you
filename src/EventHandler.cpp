@@ -27,6 +27,12 @@ void EventHandler::analyze(PupilsFrame& frame){
         case TURNED_RIGHT:
             handleTurnedRight();
             break;
+        case DEACTIVATE:
+            handleDeactivate();
+            break;
+        case IDLE:
+            handleIdle();
+            break;
         default:
             handleActive();
     }
@@ -77,14 +83,14 @@ void EventHandler::handleWaitingForRightTurn(){
 
     else if(eyeCheck(15, true, true)){
         //reset
-        state = ACTIVE;    
+        state = ACTIVE;
     }
 }
 
 void EventHandler::handleTurnedLeft(){
     if(eyeCheck(5, false, true)){
         std::cout << "3" << std::endl;
-        state = ACTIVE;
+        state = DEACTIVATE;
     }
     else if(eyeCheck(5, false, false)){
         std::cout << "1" << std::endl;
@@ -98,7 +104,7 @@ void EventHandler::handleTurnedLeft(){
 void EventHandler::handleTurnedRight(){
     if(eyeCheck(5, true, false)){
         std::cout << "4" << std::endl;
-        state = ACTIVE;
+        state = DEACTIVATE;
     }
     else if(eyeCheck(5, false, false)){
         std::cout << "1" << std::endl;
@@ -106,6 +112,16 @@ void EventHandler::handleTurnedRight(){
     }
     else if(eyeCheck(5, true, true)){
         state = WAITING_FOR_LEFT_TURN;
+    }
+}
+
+void EventHandler::handleDeactivate(){
+    state = IDLE;
+}
+
+void EventHandler::handleIdle(){
+    if(frames.getFrameAt(15).state == DEACTIVATE){
+        state = ACTIVE;
     }
 }
 

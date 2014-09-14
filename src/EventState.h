@@ -6,6 +6,8 @@ enum EventState{
     TURNED_LEFT,
     TURNED_RIGHT,
     WAITING_FOR_LEFT_TURN,
-    WAITING_FOR_RIGHT_TURN
+    WAITING_FOR_RIGHT_TURN,
+    DEACTIVATE,
+    IDLE
 };
 #endif

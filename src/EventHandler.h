@@ -21,6 +21,8 @@ class EventHandler{
         void handleTurnedRight();
         void handleWaitingForLeftTurn();
         void handleWaitingForRightTurn();
+        void handleDeactivate();
+        void handleIdle();
         bool stateCheck(int, EventState);
         bool eyeCheck(int, bool, bool);
 };
