@@ -127,10 +127,7 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
   Eyes eyes;
   findEyes(faceROI, eyes);
 
-  cv::Point leftPupil;
-  cv::Point rightPupil;
   if (eyes.hasLeftEye) {
-    leftPupil = findEyeCenter(faceROI, eyes.leftEye, "Left Eye", eyes);
     int leftX = leftPupil.x;
     int leftY = leftPupil.y;
     leftPupil.x += eyes.leftEye.x;
@@ -138,7 +135,6 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
     circle(debugFace, leftPupil, 3, 1234);
   }
   if (eyes.hasRightEye) {
-    rightPupil = findEyeCenter(faceROI, eyes.rightEye, "Right Eye", eyes);
     int rightX = rightPupil.x;
     int rightY = rightPupil.y;
     rightPupil.x += eyes.rightEye.x;
