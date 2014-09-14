@@ -15,7 +15,8 @@ ADD_EXECUTABLE(
   circularArray.cpp
   circularArray.h
   EventState.h
-  analyzer.cpp
+  EventHandler.cpp
+  EventHandler.h
   )
 TARGET_LINK_LIBRARIES( eye-see-you ${OpenCV_LIBS} )
 #target_link_libraries( eye-see-you ${MGL})

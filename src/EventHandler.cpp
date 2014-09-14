@@ -2,6 +2,7 @@
 #include "EventHandler.h"
 #include "EventState.h"
 #include "circularArray.h"
+#include "PupilsFrame.h"
 #include <iostream>
 
 EventHandler::EventHandler(){

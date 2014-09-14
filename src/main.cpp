@@ -11,6 +11,7 @@
 #include "constants.h"
 #include "EyesFrame.h"
 #include "PupilsFrame.h"
+#include "EventHandler.h"
 
 /** Constants **/
 
@@ -25,6 +26,7 @@ std::string face_window_name = "Capture - Face";
 cv::RNG rng(12345);
 cv::Mat debugImage;
 Mode mode;
+EventHandler eventHandler;
 
 /*
  * @function main
@@ -50,6 +52,10 @@ int main( int argc, const char** argv ) {
     mode = NORMAL;
   }
 
+  if (mode == NORMAL) {
+    eventHandler = EventHandler();
+  }
+
   if (mode == DEBUG) {
     printf("Input Mode: %s\n", mode == NORMAL ? "normal" :
         mode == DEBUG ? "debug" :
@@ -63,7 +69,7 @@ int main( int argc, const char** argv ) {
     cv::moveWindow("Right Eye", 10, 600);
     cv::namedWindow("Left Eye",CV_WINDOW_NORMAL);
     cv::moveWindow("Left Eye", 10, 800);
-  } else if (mode == PLOT) {
+  } else if (mode == PLOT || mode == NORMAL) {
     cv::namedWindow(face_window_name,CV_WINDOW_NORMAL);
     cv::moveWindow(face_window_name, 400, 100);
   }
@@ -100,7 +106,7 @@ int main( int argc, const char** argv ) {
         imshow(main_window_name, debugImage);
       }
 
-      if (mode == DEBUG || mode == PLOT) {
+      if (mode == DEBUG || mode == PLOT || mode == NORMAL) {
         int c = cv::waitKey(10);
         if( (char)c == 'c' ) { break; }
         if( (char)c == 'f' ) {
@@ -129,7 +135,7 @@ void processFrame(cv::Mat frame_gray, cv::Rect face) {
   // haart detection on eyes to find pupils
   PupilsFrame pupils(eyes, face, faceROI);
 
-  if (mode == DEBUG || mode == PLOT) {
+  if (mode == DEBUG || mode == PLOT || mode == NORMAL) {
     if (pupils.hasLeftPupil) {
       cv::Point leftPupil(pupils.leftPupilAbsX - face.x, pupils.leftPupilAbsY - face.y);
       circle(debugFace, leftPupil, 3, 1234);
@@ -140,7 +146,10 @@ void processFrame(cv::Mat frame_gray, cv::Rect face) {
     }
     imshow(face_window_name, faceROI);
   }
-  if (mode == DEBUG) {
+  if (mode == NORMAL) {
+    eventHandler.analyze(pupils);
+  }
+  else if (mode == DEBUG) {
     switch (eyes.numEyes) {
       case 0:
         printf("-,-;\n");
@@ -210,6 +219,7 @@ void detectAndDisplay( cv::Mat frame ) {
   if (faces.size() > 0) {
     processFrame(frame_gray, faces[0]);
   } else {
-    PupilsFrame nullFrame();
+    PupilsFrame nullFrame = PupilsFrame();
+    eventHandler.analyze(nullFrame);
   }
 }
