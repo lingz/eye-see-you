@@ -4,7 +4,7 @@
 
 class CircularArray {
     private:
-        const static int TOTAL_FACES = 60;
+        const static int TOTAL_FACES = 180;
         int oldestData;
         PupilsFrame frames[TOTAL_FACES];
     
